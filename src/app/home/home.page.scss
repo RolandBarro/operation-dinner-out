@@ -6,6 +6,7 @@
   right: 0;
   top: 50%;
   transform: translateY(-50%);
+  padding: 20px;
 }
 
 #container strong {
@@ -26,6 +27,16 @@
   text-decoration: none;
 }
 
-ion-content ion-toolbar {
-  --background: translucent;
+ion-header ion-toolbar {
+  padding-top: 1.25rem;
+}
+
+ion-content {
+  ion-toolbar {
+    --background: translucent;
+  }
+
+  .map-container {
+    padding: 1rem;
+  }
 }
