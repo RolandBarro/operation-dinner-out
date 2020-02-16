@@ -4,7 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 
-declare const google: any;
+declare var google: any;
 
 export interface MapOptions {
   zoom?: number;
@@ -40,14 +40,20 @@ export class GoogleMappingService {
   }
 
   async initializeMap(containerId: string, address: string, mapOptions: MapOptions) {
+    console.log('containerId: ', containerId);
     this.getGeocodedAddress(address)
       .subscribe(response => {
-        const map = this.ngZone.runOutsideAngular(() => {
-          return new google.maps.Map(
-            document.getElementById(containerId),
-            mapOptions
-          );
-        });
+        // const map = this.ngZone.runOutsideAngular(() => {
+        //   return new google.maps.Map(
+        //     document.getElementById(containerId),
+        //     mapOptions
+        //   );
+        // });
+
+        const map = new google.maps.Map(
+          document.getElementById(containerId),
+          mapOptions
+        );
 
         const location = response.results[0].geometry.location;
         map.setCenter(location);
