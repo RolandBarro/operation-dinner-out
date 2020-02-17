@@ -3,6 +3,7 @@ import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { GoogleMappingService } from '../services/google-mapping.service';
 import { LocalDataService } from '../services/local-data.service';
 import { Observable } from 'rxjs';
+import { Place } from '../models/place.model';
 
 @Component({
   selector: 'app-home',
@@ -13,10 +14,9 @@ export class HomePage implements AfterViewInit {
 
   @ViewChild('mapContainer', { static: false }) mapContainer: any;
 
-  places$: Observable<any>;
-  places: any[];
-  selectedAddress: any;
-  selectedPlace: any;
+  places$: Observable<Place[]>;
+  places: Place[];
+  selectedPlace: string;
 
   customPopoverOptions: any = {
     header: 'Select a place',
@@ -30,12 +30,10 @@ export class HomePage implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.places$.subscribe(places => {
+    this.places$.subscribe((places: Place[]) => {
       if (places && places.length) {
         this.places = places;
         this.selectedPlace = places[0].name;
-
-        console.log(this.selectedPlace, places[0].name);
 
         if (this.selectedPlace) {
           this.buildMap();

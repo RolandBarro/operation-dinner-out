@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { Place } from '../models/place.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LocalDataService {
 
-  private _places$ = new BehaviorSubject<any>([]);
-
+  private _places$ = new BehaviorSubject<Place[]>([]);
   private places$ = this._places$.asObservable();
 
   constructor(
@@ -22,7 +22,7 @@ export class LocalDataService {
       });
   }
 
-  get places() {
+  get places(): Observable<Place[]> {
     this.getPlaces();
 
     return this.places$;
