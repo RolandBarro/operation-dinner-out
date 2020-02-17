@@ -1,18 +1,14 @@
 <ion-content [fullscreen]="true">
   <ion-col size="12" offset="4">
     <ion-toolbar class="select-toolbar">
-      <ion-select class="select-overlay" 
-        [interfaceOptions]="customPopoverOptions"
-        interface="popover" 
-        [(ngModel)]="selectedPlace"
-        (ionChange)="locate($event)"
-        [selectedText]="selectedPlace">
-        <ion-select-option 
-          *ngFor="let place of places$ | async" 
-          [value]="place">
+      <ion-searchbar type="text" debounce="500" [(ngModel)]="searchText" (ionChange)="searchPlaces($event)"></ion-searchbar>
+      <ion-list *ngIf="searchText && showResults">
+          <ion-item 
+          *ngFor="let place of foundPlaces$ | async"
+          (click)="locate(place)">
           {{ place.name }}
-        </ion-select-option>
-      </ion-select>
+        </ion-item>
+      </ion-list>
     </ion-toolbar>
   </ion-col>
 
