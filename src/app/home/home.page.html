@@ -1,17 +1,22 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-searchbar></ion-searchbar>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
-  <!-- TODO: make this floating later -->
-  <ion-toolbar>
-    <ion-select interface="popover">
-      <ion-select-option *ngFor="let place of places$ | async" value="place.address">{{ place.name }}</ion-select-option>
-    </ion-select>
-  </ion-toolbar>
-  <div class="map-container" #mapContainer>
-    map here...
+  <ion-col size="12" offset="4">
+    <ion-toolbar class="select-toolbar">
+      <ion-select class="select-overlay" 
+        [interfaceOptions]="customPopoverOptions"
+        interface="popover" 
+        [(ngModel)]="selectedPlace"
+        (ionChange)="locate($event)"
+        [selectedText]="selectedPlace">
+        <ion-select-option 
+          *ngFor="let place of places$ | async" 
+          [value]="place">
+          {{ place.name }}
+        </ion-select-option>
+      </ion-select>
+    </ion-toolbar>
+  </ion-col>
+
+  <div class="content-container">
+    <div class="map-container" #mapContainer></div>
   </div>
 </ion-content>

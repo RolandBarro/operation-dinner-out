@@ -18,8 +18,6 @@ export class LocalDataService {
   getPlaces() {
     return this.http.get('../../assets/resources/places_dataset.json')
       .subscribe((places: any) => {
-        console.log('places: ', places);
-
         this._places$.next(JSON.parse(places.data.listPlacesString2));
       });
   }
