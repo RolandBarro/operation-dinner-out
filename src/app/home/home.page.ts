@@ -85,6 +85,7 @@ export class HomePage implements AfterViewInit {
         return place.name.toLocaleLowerCase().includes(searchString);
       });
 
+      this.showResults = !!foundPlaces.length;
       this._foundPlaces$.next(foundPlaces || null);
     }
 
